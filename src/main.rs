@@ -96,7 +96,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     tokio::spawn(async move {
         let mut tick = 0u64;
         loop {
-            sleep(Duration::from_secs(4)).await;
+            let jitter = 0.8 + rand::random::<f64>() * 0.4;
+            sleep(Duration::from_secs_f64(4.0 * jitter)).await;
             tick += 1;
 
             let mut total_kills = 0u64;

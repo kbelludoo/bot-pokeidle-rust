@@ -11,6 +11,20 @@ pub struct AccountConfig {
     pub credentials: GameCredentials,
     #[serde(default)]
     pub settings: GameSettings,
+    #[serde(default, rename = "bindIP")]
+    pub bind_ip: Option<String>,
+    #[serde(default)]
+    pub twitch: Option<TwitchConfig>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+pub struct TwitchConfig {
+    #[serde(default)]
+    pub enabled: bool,
+    #[serde(default)]
+    pub username: String,
+    #[serde(default, rename = "oauthToken", alias = "oauth_token")]
+    pub oauth_token: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
@@ -23,26 +37,40 @@ pub struct GameCredentials {
     pub token: String,
     #[serde(default)]
     pub origin: String,
+    #[serde(default, rename = "sessionCookie", alias = "session_cookie")]
+    pub session_cookie: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 pub struct GameSettings {
-    #[serde(default)]
+    #[serde(default, rename = "huntTarget", alias = "hunt_target")]
     pub hunt_target: String,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoHunt", alias = "auto_hunt")]
     pub auto_hunt: bool,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoSell", alias = "auto_sell")]
     pub auto_sell: bool,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoHeal", alias = "auto_heal")]
     pub auto_heal: bool,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoDaily", alias = "auto_daily")]
     pub auto_daily: bool,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoCatch", alias = "auto_catch")]
     pub auto_catch: bool,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoBoss", alias = "auto_boss")]
     pub auto_boss: bool,
-    #[serde(default = "default_true")]
+    #[serde(default = "default_true", rename = "autoGym", alias = "auto_gym")]
     pub auto_gym: bool,
+    #[serde(default, rename = "autoEquip", alias = "auto_equip")]
+    pub auto_equip: Option<bool>,
+    #[serde(default, rename = "autoTreino", alias = "auto_treino")]
+    pub auto_treino: Option<bool>,
+    #[serde(default, rename = "ballType", alias = "ball_type")]
+    pub ball_type: Option<String>,
+    #[serde(default, rename = "healThreshold", alias = "heal_threshold")]
+    pub heal_threshold: Option<f64>,
+    #[serde(default, rename = "minGoldKeep", alias = "min_gold_keep")]
+    pub min_gold_keep: Option<i64>,
+    #[serde(default)]
+    pub lure: Option<i32>,
 }
 
 fn default_true() -> bool {
